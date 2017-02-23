@@ -46,102 +46,48 @@
 
 	'use strict';
 
-	var _main = __webpack_require__(1);
-
-	var _main2 = _interopRequireDefault(_main);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var relationship = {
-	    init: function init() {
-	        this.initPage();
-	        this.initEvent();
-	        this.initComponent();
-	    },
-	    initPage: function initPage() {},
-	    initEvent: function initEvent() {},
-	    initComponent: function initComponent() {
-	        _main2.default.init();
-	    }
-	}; /**
-	    * Created by wb-llw259548 on 2017/2/17.
-	    */
-
-
-	relationship.init();
-
-/***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
 	var _d = __webpack_require__(2);
 
 	var d3 = _interopRequireWildcard(_d);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-	var caches = {
-	    canvas: {
-	        canvasEleD3: null,
-	        canvasEle: null,
-	        ctx: null
-	    }
-
-	}; /**
-	    * Created by wb-llw259548 on 2017/2/17.
-	    */
+	var canvasEle = document.getElementById('canvas'),
+	    ctx = canvasEle.getContext('2d'); /**
+	                                       * Created by wb-llw259548 on 2017/2/23.
+	                                       */
 
 
-	var relationshipMain = {
-	    init: function init() {
-	        this.initData();
-	    },
-	    initData: function initData() {
-	        caches.canvas.canvasEleD3 = d3.select('#canvas');
-	        caches.canvas.canvasEle = document.getElementById('canvas');
-	        caches.canvas.ctx = caches.canvas.canvasEle.getContext('2d');
+	var arc = d3.arc();
+	arc.context(ctx);
+	ctx.beginPath();
+	ctx.translate(0, 110);
+	ctx.fillStyle = 'red';
+	arc({
+	    innerRadius: 0,
+	    outerRadius: 100,
+	    startAngle: 0,
+	    endAngle: Math.PI / 2
+	});
+	ctx.fill();
+	ctx.closePath();
 
-	        var ctx = caches.canvas.ctx;
+	var data = [[20, 20], [30, 40], [40, 50]];
 
-	        var arc = d3.arc();
-	        arc.context(ctx);
-	        ctx.beginPath();
-	        ctx.translate(0, 110);
-	        ctx.fillStyle = 'red';
-	        arc({
-	            innerRadius: 0,
-	            outerRadius: 100,
-	            startAngle: 0,
-	            endAngle: Math.PI / 2
-	        });
-	        ctx.fill();
-	        ctx.closePath();
+	var line = d3.line().x(function (d) {
+	    return d[0];
+	}).y(function (d) {
+	    return d[1];
+	});
 
-	        var data = [[20, 20], [30, 40], [40, 50]];
-
-	        var line = d3.line().x(function (d) {
-	            return d[0];
-	        }).y(function (d) {
-	            return d[1];
-	        });
-
-	        ctx.beginPath();
-	        ctx.translate(111, 111);
-	        line.context(ctx)(data);
-	        ctx.fill();
-	        ctx.closePath();
-	    }
-	};
-
-	exports.default = relationshipMain;
+	ctx.beginPath();
+	ctx.translate(111, 111);
+	line.context(ctx)(data);
+	ctx.fill();
+	ctx.closePath();
 
 /***/ },
+/* 1 */,
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 

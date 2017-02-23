@@ -9,7 +9,8 @@ const
 module.exports = {
     //入口文件路径配置
     entry: {
-        relationship: `${rootPath}/src/scripts/relationship/index.js`
+        relationship: `${rootPath}/src/scripts/relationship/index.js`,
+        test: `${rootPath}/src/scripts/test/index.js`
     },
     //输出文件路径配置
     output: {
@@ -55,6 +56,12 @@ module.exports = {
             template: `${rootPath}/src/views/relationship.html`,
             hash: true,
             chunks: ['relationship']
+        }),
+        new HtmlWebpackPlugin({
+            filename: `${rootPath}/assets/test.html`,
+            template: `${rootPath}/src/views/test.html`,
+            hash: true,
+            chunks: ['test']
         })
     ]
 };
